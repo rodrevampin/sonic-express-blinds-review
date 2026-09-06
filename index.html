@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sonic Express Blinds — Custom shades, blinds & ultrasonic blind cleaning in Lombard, IL</title>
+<meta name="description" content="Custom zebra shades, roller and blackout shades, wood blinds, shutters and drapery, cut in our Lombard workshop and installed by us. Ultrasonic blind cleaning and repair, same day. Free in-home estimates across DuPage County. (630) 717-5665.">
+<meta property="og:title" content="Sonic Express Blinds — Lombard, IL">
+<meta property="og:description" content="Custom shades and blinds made and installed in DuPage County. Ultrasonic blind cleaning and repair, same day.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#15171B">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"Sonic Express Blinds","legalName":"Sonic Express Blind Cleaning LLC","telephone":"+1-630-717-5665","email":"sonicexpressblinds@gmail.com","address":{"@type":"PostalAddress","streetAddress":"1210 S Garfield St","addressLocality":"Lombard","addressRegion":"IL","postalCode":"60148","addressCountry":"US"},"openingHours":["Mo-Fr 09:00-17:00"],"areaServed":["Lombard","Glen Ellyn","Wheaton","Elmhurst","Villa Park","Downers Grove","Oak Brook","Hinsdale","Western Springs","Naperville","Lisle","Woodridge","Bolingbrook","Aurora","Oak Park","Chicago"],"sameAs":["https://www.facebook.com/SonicExpressBlindCleaningInstallation/","https://www.instagram.com/sonicexpressblinds/","https://www.yelp.com/biz/sonic-express-blind-naperville"]}
+</script>
+<style>
+:root{
+  --ink:#15171B; --linen:#F5F1EA; --bone:#E9E2D6; --slat:#C9C1B3; --slate:#5E6672; --dawn:#D8A24A; --white:#fff;
+  --seam:#b69f82; /* sampled from the last frame */
+  --display:"Fraunces", Georgia, serif; --sans:"Jost", "Helvetica Neue", Arial, sans-serif;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px, 5vw, 72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--linen);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;letter-spacing:-.01em;line-height:1.02;font-variation-settings:"SOFT" 50, "opsz" 144}
+p{margin:0}
+.label{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--slate)}
+.wrap{width:min(1280px, 100% - 2*var(--pad));margin:0 auto}
+.btn{display:inline-flex;align-items:center;gap:12px;height:56px;padding:0 28px;background:var(--ink);color:#fff;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border-radius:2px;position:relative;overflow:hidden;isolation:isolate;box-shadow:0 10px 30px -14px rgba(21,23,27,.55);transition:transform .45s var(--ease-out), box-shadow .45s var(--ease-out);white-space:nowrap}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg, transparent 30%, rgba(216,162,74,.55) 50%, transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease-out);z-index:-1}
+.btn:hover::after{transform:translateX(120%)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px -14px rgba(21,23,27,.6)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border:1px solid var(--ink)}
+.btn.ghost::after{display:none}
+.btn.light{background:#fff;color:var(--ink)}
+.btn svg{width:16px;height:16px}
+
+/* ---------- header ---------- */
+.site-header{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px var(--pad);color:#fff;transition:color .4s, background .5s, box-shadow .5s}
+.site-header::before{content:"";position:absolute;inset:0 0 auto 0;height:190%;z-index:-1;background:linear-gradient(to bottom, rgba(10,8,6,.62), rgba(10,8,6,0));pointer-events:none;transition:opacity .5s}
+.site-header .brand{display:flex;align-items:center;gap:14px;transition:opacity .5s var(--ease-out)}
+.site-header .brand img{height:60px;width:auto;filter:drop-shadow(0 1px 10px rgba(0,0,0,.45))}
+.site-header .brand .logo-ink{display:none}
+.site-header nav{display:flex;gap:30px}
+.site-header nav a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;text-shadow:0 1px 18px rgba(0,0,0,.5);position:relative}
+.site-header nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:1px;background:currentColor;transition:right .45s var(--ease-out)}
+.site-header nav a:hover::after{right:0}
+.site-header .cta{display:flex;align-items:center;gap:22px}
+.site-header .phone{font-size:14px;letter-spacing:.06em;font-weight:500;text-shadow:0 1px 18px rgba(0,0,0,.5)}
+.site-header .btn{height:46px;padding:0 20px;font-size:12px;background:#fff;color:var(--ink);box-shadow:none}
+.site-header.on-light{color:var(--ink)}
+.site-header.on-light::before{opacity:0}
+.site-header.on-light .brand img{filter:none}
+.site-header.on-light .brand .logo-white{display:none}
+.site-header.on-light .brand .logo-ink{display:block}
+.site-header.on-light nav a,.site-header.on-light .phone{text-shadow:none}
+.site-header.on-light .btn{background:var(--ink);color:#fff}
+.site-header.docked{background:rgba(245,241,234,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--slat)}
+.site-header.docked.over-ink{background:rgba(21,23,27,.92);box-shadow:0 1px 0 rgba(255,255,255,.14);color:#fff}
+.site-header.docked.over-ink .brand .logo-white{display:block}
+.site-header.docked.over-ink .brand .logo-ink{display:none}
+.site-header.docked.over-ink .btn{background:#fff;color:var(--ink)}
+.site-header.docked.over-ink .phone-ic{border-color:rgba(255,255,255,.4)}
+.site-header.docked::before{opacity:0}
+.site-header .phone-ic{display:none;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.4);place-items:center;color:inherit}
+.site-header .phone-ic svg{width:20px;height:20px}
+.site-header.on-light .phone-ic{border-color:rgba(21,23,27,.3)}
+.menu-btn{display:none;width:46px;height:46px;border:0;background:transparent;color:inherit;cursor:pointer;position:relative;padding:0}
+.menu-btn span{position:absolute;left:12px;right:12px;height:1.5px;background:currentColor;top:50%;transition:transform .45s var(--ease-out)}
+.menu-btn span:first-child{transform:translateY(-4px)}
+.menu-btn span:last-child{transform:translateY(4px)}
+body.menu-open .menu-btn span:first-child{transform:rotate(45deg)}
+body.menu-open .menu-btn span:last-child{transform:rotate(-45deg)}
+#menu{position:fixed;inset:0;z-index:40;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:0 var(--pad) 40px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease-out), visibility 0s .5s}
+body.menu-open #menu{opacity:1;visibility:visible;transition-delay:0s}
+body.menu-open .site-header{color:#fff}
+body.menu-open .site-header .brand .logo-white{display:block}
+body.menu-open .site-header .brand .logo-ink{display:none}
+body.menu-open .site-header .btn{background:#fff;color:var(--ink)}
+body.menu-open .site-header::before{opacity:0}
+body.menu-open .site-header.docked{background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#menu nav{display:grid;gap:6px;margin-bottom:auto;padding-top:120px}
+#menu nav a{font-family:var(--display);font-size:clamp(34px, 9vw, 48px);line-height:1.15;opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease-out), transform .6s var(--ease-out)}
+body.menu-open #menu nav a{opacity:1;transform:none}
+body.menu-open #menu nav a:nth-child(2){transition-delay:.05s}body.menu-open #menu nav a:nth-child(3){transition-delay:.1s}body.menu-open #menu nav a:nth-child(4){transition-delay:.15s}body.menu-open #menu nav a:nth-child(5){transition-delay:.2s}body.menu-open #menu nav a:nth-child(6){transition-delay:.25s}
+#menu .menu-foot{display:grid;gap:8px;padding-top:28px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;color:rgba(255,255,255,.7);letter-spacing:.04em}
+#menu .menu-foot .big{font-family:var(--display);font-size:28px;color:#fff;letter-spacing:-.01em}
+@media (max-width:1000px){.site-header nav{display:none}.menu-btn{display:block}}
+@media (max-width:640px){.site-header .phone{display:none}.site-header .phone-ic{display:grid}.site-header .brand img{height:50px}.site-header .btn{padding:0 14px}}
+
+/* ---------- film ---------- */
+#film{position:relative;height:800vh;background:var(--ink)}
+#stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--ink)}
+#screen{position:absolute;inset:0;width:100%;height:100%;display:block}
+#grain{position:absolute;inset:-50%;width:200%;height:200%;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-2%)}80%{transform:translate(3%,1%)}100%{transform:translate(0,0)}}
+#vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(8,6,4,.42) 100%)}
+#handoff{position:absolute;inset:auto 0 0 0;height:42%;pointer-events:none;opacity:0;background:linear-gradient(to bottom, rgba(245,241,234,0), rgba(245,241,234,.55) 45%, var(--linen))}
+#loader{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;background:var(--ink);color:#fff;z-index:5;transition:opacity .7s var(--ease-out)}
+#loader.done{opacity:0;pointer-events:none}
+#loader img{height:64px}
+#loader .bar{width:160px;height:1px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
+#loader .bar i{position:absolute;inset:0 100% 0 0;background:#fff;transition:inset .2s linear}
+.beat{position:absolute;left:var(--pad);right:var(--pad);top:50%;transform:translateY(-50%);opacity:0;color:#fff;max-width:720px;pointer-events:none;will-change:opacity,transform}
+.beat::before{content:"";position:absolute;z-index:-1;inset:-60% -30% -60% -18%;background:radial-gradient(60% 60% at 24% 50%, rgba(8,6,4,.62), rgba(8,6,4,.34) 46%, transparent 78%)}
+.beat h1,.beat h2{font-size:clamp(38px, 6.2vw, 92px);text-shadow:0 2px 30px rgba(0,0,0,.35);text-wrap:balance}
+.beat p{margin-top:22px;font-size:clamp(16px, 1.35vw, 20px);line-height:1.55;max-width:34em;color:rgba(255,255,255,.92);text-shadow:0 1px 16px rgba(0,0,0,.45)}
+.beat .label{color:rgba(255,255,255,.78);margin-bottom:22px;display:block}
+.beat .btn{pointer-events:auto;margin-top:30px}
+.beat .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.beat .ctas .btn{margin-top:0}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.beat.hero{max-width:900px}
+.beat.hero .mark{height:min(112px, 14vh);width:auto;margin-bottom:28px;filter:drop-shadow(0 4px 24px rgba(0,0,0,.45))}
+.beat.light,.beat.finale{color:var(--ink)}
+.beat.light::before{background:radial-gradient(62% 64% at 26% 50%, rgba(245,241,234,.9), rgba(245,241,234,.62) 48%, transparent 80%)}
+.beat.finale::before{background:radial-gradient(60% 60% at 24% 50%, rgba(245,241,234,.9), rgba(245,241,234,.6) 46%, transparent 78%)}
+.beat.light h2,.beat.light p,.beat.finale h2,.beat.finale p{text-shadow:none;color:var(--ink)}
+.beat.light .label,.beat.finale .label{color:var(--slate)}
+.beat.finale .phone{display:block;margin-top:18px;font-family:var(--display);font-size:clamp(26px, 3vw, 40px);letter-spacing:-.01em}
+.beat.finale .phone a{border-bottom:1px solid rgba(21,23,27,.35)}
+.scroll-hint{position:absolute;right:var(--pad);bottom:34px;width:1px;height:56px;background:linear-gradient(to bottom, rgba(255,255,255,.0), rgba(255,255,255,.7));animation:hint 2.4s var(--ease-out) infinite;transition:opacity .4s}
+@keyframes hint{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:768px){
+  #film{height:620vh}
+  .beat{top:calc(var(--band-bottom, 44vh) + 20px);bottom:auto;transform:none;right:var(--pad)}
+  .beat h1,.beat h2{font-size:clamp(44px, 11.5vw, 54px)}
+  .beat p{font-size:16px}
+  .beat.hero .mark{height:64px;margin-bottom:20px}
+  .beat::before{inset:-40% -30% -30% -18%}
+  /* portrait: the film is letterboxed in the upper part, beats sit on ink below it */
+  .beat.light{color:#fff}
+  .beat.light::before{background:none}
+  .beat.light h2,.beat.light p{color:#fff}
+  .beat.light .label{color:rgba(255,255,255,.78)}
+  .scroll-hint{display:none}
+}
+
+/* ---------- sections ---------- */
+.section{position:relative;padding:clamp(88px, 12vh, 160px) 0;min-height:min(92vh, 900px);display:flex;align-items:center}
+.section .wrap > *{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease-out), transform .9s var(--ease-out)}
+.section.in .wrap > *{opacity:1;transform:none}
+.section.in .wrap > :nth-child(2){transition-delay:.09s}
+.section.in .wrap > :nth-child(3){transition-delay:.18s}
+.section.in .wrap > :nth-child(4){transition-delay:.27s}
+.section.in .wrap > :nth-child(5){transition-delay:.36s}
+.section h2{font-size:clamp(40px, 5.4vw, 80px);text-wrap:balance;max-width:16ch}
+.section .lede{font-size:clamp(18px, 1.5vw, 22px);line-height:1.55;max-width:34em;color:#2b2e34}
+.section .label{display:block;margin-bottom:26px}
+.rule{height:1px;background:var(--slat);border:0;margin:0}
+.bone{background:var(--bone)}
+.ink{background:var(--ink);color:#fff}
+.ink .label{color:rgba(255,255,255,.62)}
+.ink .lede{color:rgba(255,255,255,.86)}
+.ink .rule{background:rgba(255,255,255,.16)}
+
+/* promise */
+#promise{background:var(--linen);padding-top:0;min-height:0}
+#promise .wrap{padding-top:clamp(64px, 9vh, 120px);padding-bottom:clamp(48px, 6vh, 72px)}
+#promise .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px, 6vw, 96px);align-items:end}
+#promise h2{font-size:clamp(44px, 6.2vw, 92px);max-width:12ch}
+.proof{display:grid;grid-template-columns:repeat(4, 1fr);margin-top:clamp(56px, 8vh, 96px);border-top:1px solid var(--slat)}
+.proof div{padding:28px 24px 0 0;border-right:1px solid var(--slat);margin-right:24px}
+.proof div:last-child{border-right:0;margin-right:0}
+.proof b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(30px, 3vw, 44px);line-height:1;letter-spacing:-.02em}
+.proof b .star{color:var(--dawn);font-size:.6em;vertical-align:.25em;margin-left:2px}
+.proof > div > span{display:block;margin-top:12px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--slate)}
+@media (max-width:900px){#promise .grid{grid-template-columns:1fr}.proof{grid-template-columns:repeat(2, 1fr)}.proof div:nth-child(2){border-right:0}.proof div{margin-bottom:26px}}
+
+/* collection */
+#collection .head{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-bottom:clamp(48px, 7vh, 88px)}
+.cards{display:grid;grid-template-columns:repeat(3, 1fr);gap:28px}
+.card{background:var(--bone);border-radius:2px;overflow:hidden;position:relative;transition:transform .6s var(--ease-out), box-shadow .6s var(--ease-out)}
+.card:hover{transform:translateY(-4px);box-shadow:0 30px 50px -34px rgba(21,23,27,.5)}
+.still{aspect-ratio:4/3;overflow:hidden;background:var(--bone)}
+.still img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s var(--ease-out)}
+.card:hover .still img{transform:scale(1.03)}
+.card .body{padding:26px 26px 30px}
+.card h3{font-size:26px;letter-spacing:-.01em;margin-top:12px}
+.card p{margin-top:10px;font-size:16px;line-height:1.55;color:#3a3e45}
+.card .for{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);font-weight:500}
+.also{margin-top:36px;font-size:16px;color:var(--slate)}
+@media (max-width:1000px){.cards{grid-template-columns:repeat(2, 1fr)}}
+@media (max-width:640px){.cards{grid-template-columns:1fr}#collection .head{grid-template-columns:1fr}}
+
+/* installs */
+#installs .wrap{width:min(1440px, 100% - 2*var(--pad))}
+.gallery{display:grid;grid-template-columns:1.6fr 1fr 1fr;grid-template-rows:auto auto;gap:22px;margin-top:clamp(40px, 6vh, 72px)}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:2px;background:var(--slat)}
+.gallery figure img{width:100%;height:100%;object-fit:cover;filter:sepia(.22) saturate(.72) contrast(1.05) brightness(.98);transition:transform 1.4s var(--ease-out)}
+.gallery figure:hover img{transform:scale(1.03)}
+.gallery figure:nth-child(1){grid-row:1/3;aspect-ratio:auto;min-height:100%}
+.gallery figure:nth-child(n+2){aspect-ratio:4/3}
+.gallery figure:nth-child(4){grid-column:2/4;aspect-ratio:2.4/1}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:44px 20px 18px;color:#fff;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;background:linear-gradient(to top, rgba(10,8,6,.78), rgba(10,8,6,0))}
+@media (max-width:800px){.gallery{grid-template-columns:1fr 1fr}.gallery figure:nth-child(1){grid-row:auto;grid-column:1/3;aspect-ratio:16/10}.gallery figure:nth-child(4){grid-column:1/3}}
+
+/* lombard */
+#lombard .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(40px, 7vw, 120px);align-items:center}
+#lombard h2{max-width:13ch}
+@media (max-width:900px){#lombard .grid{grid-template-columns:1fr}}
+
+/* cleaning */
+#cleaning .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px, 7vw, 120px);align-items:start}
+#cleaning h2{max-width:14ch}
+.spec{list-style:none;margin:0;padding:0;border-top:1px solid var(--slat)}
+.spec li{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--slat);font-size:16.5px;line-height:1.5}
+.spec li b{font-family:var(--display);font-weight:400;font-size:20px;color:var(--slate)}
+@media (max-width:900px){#cleaning .grid{grid-template-columns:1fr}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(3, 1fr);gap:clamp(28px, 4vw, 64px);margin-top:clamp(48px, 7vh, 88px)}
+.section.photo{background-size:cover;background-position:center;position:relative}
+.section.photo::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(21,23,27,.55), rgba(21,23,27,.35) 40%, rgba(21,23,27,.7));pointer-events:none}
+.section.photo .wrap{position:relative}
+.step b{display:block;font-family:var(--display);font-weight:300;font-size:clamp(52px, 5.4vw, 76px);line-height:.9;letter-spacing:-.03em;color:rgba(255,255,255,.35)}
+.step h3{margin-top:20px;font-size:28px}
+.step p{margin-top:14px;font-size:16.5px;line-height:1.55;color:rgba(255,255,255,.86)}
+@media (max-width:800px){.steps{grid-template-columns:1fr}}
+
+/* reviews */
+.quotes{display:grid;grid-template-columns:repeat(3, 1fr);gap:26px;margin-top:clamp(48px, 7vh, 88px)}
+.quote{background:var(--bone);padding:34px 32px 30px;border-radius:2px;display:flex;flex-direction:column;gap:18px}
+.quote .stars{color:var(--slate);letter-spacing:.12em;font-size:14px}
+.quote blockquote{margin:0;font-family:var(--display);font-weight:350;font-size:21px;line-height:1.4;font-variation-settings:"SOFT" 50, "opsz" 72;flex:1}
+.quote cite{font-style:normal;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:500}
+.quote:nth-child(1){grid-row:span 1}
+@media (max-width:1000px){.quotes{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.quotes{grid-template-columns:1fr}}
+
+/* area */
+#area .towns{margin-top:clamp(40px, 6vh, 72px);font-family:var(--display);font-size:clamp(28px, 3.8vw, 56px);line-height:1.25;letter-spacing:-.01em;max-width:24ch;color:#2b2e34}
+#area .towns em{font-style:normal;color:var(--ink);border-bottom:2px solid var(--dawn)}
+#area .towns .t{white-space:nowrap}
+#area .towns span.d{color:var(--slate)}
+#area .far{margin-top:34px;color:var(--slate);font-size:17px}
+
+/* faq */
+#faq .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px, 6vw, 96px);align-items:start}
+#faq .grid > div:first-child{position:sticky;top:120px}
+.faq{border-top:1px solid var(--slat)}
+.faq details{border-bottom:1px solid var(--slat)}
+.faq summary{list-style:none;cursor:pointer;padding:26px 0;font-family:var(--display);font-weight:350;font-variation-settings:"SOFT" 50, "opsz" 72;font-size:clamp(22px, 2.2vw, 30px);display:flex;justify-content:space-between;align-items:center;gap:24px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--sans);font-weight:300;font-size:30px;color:var(--slate);transition:transform .45s var(--ease-out)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 0 28px;max-width:38em;font-size:16.5px;line-height:1.6;color:#3a3e45}
+
+/* contact */
+#contact .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px, 7vw, 120px);align-items:start}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:clamp(40px, 6vh, 64px)}
+.form .full{grid-column:1/3}
+.field{display:grid;gap:8px}
+.field label{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--slate)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:16px;padding:14px 0;border:0;border-bottom:1px solid var(--slat);background:transparent;color:var(--ink);border-radius:0;outline:none;transition:border-color .3s}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--ink)}
+.field textarea{min-height:110px;resize:vertical}
+.field select{appearance:none;-webkit-appearance:none;padding-right:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%2315171B' stroke-width='1.4'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 4px center/14px}
+.form .btn{grid-column:1/3;justify-self:start;margin-top:8px}
+.details{display:grid;gap:26px;padding-top:clamp(40px, 6vh, 64px)}
+.details .row{display:grid;grid-template-columns:120px 1fr;gap:18px;padding-bottom:22px;border-bottom:1px solid var(--slat)}
+.details .row .k{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);font-weight:500;padding-top:6px}
+.details .row .v{font-family:var(--display);font-size:clamp(20px, 1.8vw, 26px);line-height:1.3}
+.details .row .v small{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--slate);margin-top:8px}
+.map{margin-top:10px;aspect-ratio:16/10;border-radius:2px;overflow:hidden;background:var(--bone);filter:grayscale(1) sepia(.22) contrast(.92) brightness(1.04)}
+.map .leaflet-control-attribution{font:500 10px/1.4 var(--sans);letter-spacing:.04em;background:rgba(245,241,234,.85);color:var(--slate);padding:4px 8px}
+.map .leaflet-control-attribution a{color:var(--slate);text-decoration:none}
+.map .leaflet-attribution-flag{display:none}
+.map .leaflet-container{background:var(--bone);font:inherit}
+@media (max-width:900px){#contact .grid{grid-template-columns:1fr}#faq .grid{grid-template-columns:1fr}#faq .grid > div:first-child{position:static}}
+@media (max-width:600px){.form{grid-template-columns:1fr}.form .full,.form .btn{grid-column:1/2}}
+
+/* footer */
+footer{background:var(--ink);color:#fff;padding:72px 0 40px}
+footer .top{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:start}
+footer .top img{height:88px;width:auto}
+footer nav{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:center;padding-top:14px}
+footer nav a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:rgba(255,255,255,.78)}
+footer nav a:hover{color:#fff}
+footer .social{display:flex;gap:16px;padding-top:8px}
+footer .social a{width:44px;height:44px;border:1px solid rgba(255,255,255,.22);border-radius:50%;display:grid;place-items:center;transition:border-color .3s, background .3s}
+footer .social a:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+footer .social svg{width:18px;height:18px;fill:#fff}
+footer .bottom{margin-top:56px;padding-top:24px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.62);letter-spacing:.03em}
+@media (max-width:800px){footer .top{grid-template-columns:1fr;justify-items:start}footer nav{justify-content:flex-start;padding-top:0}}
+
+@media (prefers-reduced-motion: reduce){
+  #grain{animation:none}
+  .scroll-hint{animation:none;opacity:0}
+  .section .wrap > *{opacity:1;transform:none;transition:none}
+  .btn,.btn::after,.card,.gallery figure img{transition:none}
+  .beat{transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="header">
+  <a class="brand" href="#top" aria-label="Sonic Express Blinds">
+    <img class="logo-white" src="assets/logo-white.png" alt="Sonic Express Blinds" width="347" height="348">
+    <img class="logo-ink" src="assets/logo-ink.png" alt="" width="347" height="348" aria-hidden="true">
+  </a>
+  <nav aria-label="Primary">
+    <a href="#collection">Shades &amp; Blinds</a>
+    <a href="#cleaning">Cleaning &amp; Repair</a>
+    <a href="#process">How it works</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="cta">
+    <a class="phone" href="tel:+16307175665">(630) 717-5665</a>
+    <a class="phone-ic" href="tel:+16307175665" aria-label="Call (630) 717-5665"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+    <a class="btn" href="#contact">Free estimate</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div id="menu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#collection">Shades &amp; Blinds</a>
+    <a href="#cleaning">Cleaning &amp; Repair</a>
+    <a href="#process">How it works</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">Questions</a>
+    <a href="#contact">Free estimate</a>
+  </nav>
+  <div class="menu-foot">
+    <a class="big" href="tel:+16307175665">(630) 717-5665</a>
+    <span>1210 S Garfield St, Lombard · Mon–Fri 9 to 5</span>
+  </div>
+</div>
+
+<main id="top">
+
+<section id="film" aria-label="Sonic Express Blinds">
+  <div id="stage">
+    <canvas id="screen" aria-hidden="true"></canvas>
+    <noscript><img src="assets/poster.jpg" alt="A Lombard living room at dawn with a closed zebra shade over the window" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><style>#loader,.scroll-hint{display:none}.beat{opacity:1!important}.beat:not(.hero){display:none}#film{height:100vh}</style></noscript>
+    <div id="grain" aria-hidden="true"></div>
+    <div id="vignette" aria-hidden="true"></div>
+    <div id="handoff" aria-hidden="true"></div>
+
+    <div class="beat hero" data-in="-0.1" data-peak="0" data-out="0.14">
+      <img class="mark" src="assets/logo-white.png" alt="Sonic Express Blinds" width="347" height="348">
+      <h1>Custom shades and blinds, made and installed in DuPage County.</h1>
+      <p>Lombard, Illinois · Free in-home estimates · Same-day ultrasonic blind cleaning</p>
+      <a class="btn light" href="#contact">Book a free estimate</a>
+    </div>
+
+    <div class="beat" data-in="0.16" data-peak="0.24" data-out="0.34">
+      <span class="label">Zebra shades</span>
+      <h2>Light on your terms.</h2>
+      <p>Sheer, filtered or private from one roller. We bring the fabric to your window, so you pick it in the light you live with.</p>
+    </div>
+
+    <div class="beat" data-in="0.38" data-peak="0.47" data-out="0.57">
+      <span class="label">Cut in Lombard</span>
+      <h2>Privacy without living in the dark.</h2>
+      <p>Every shade is cut to your window in our Lombard shop, not trimmed on your floor out of a box.</p>
+    </div>
+
+    <div class="beat light" data-in="0.60" data-peak="0.69" data-out="0.80">
+      <span class="label">Marco &amp; Alfredo</span>
+      <h2>Measured, made and hung by the people who answer the phone.</h2>
+      <p>You'll talk to Marco or Alfredo. One of them is there on install day. 5.0 on Google across 22 reviews.</p>
+    </div>
+
+    <div class="beat finale" data-in="0.86" data-peak="0.95" data-out="2">
+      <span class="label">Free in-home estimate</span>
+      <h2>Ready when you are.</h2>
+      <div class="ctas"><a class="btn" href="#contact">Book a free estimate <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a><a class="btn ghost" href="#cleaning">Blind cleaning &amp; repair</a></div>
+      <span class="phone"><a href="tel:+16307175665">(630) 717-5665</a></span>
+    </div>
+
+    <div class="scroll-hint" id="hint" aria-hidden="true"></div>
+
+    <div id="loader" aria-hidden="true"><img src="assets/logo-white.png" alt=""><div class="bar"><i id="loadbar"></i></div></div>
+  </div>
+</section>
+
+<section id="promise" class="section">
+  <div class="wrap">
+    <span class="label">Window treatments · Lombard, IL</span>
+    <div class="grid">
+      <h2>One shop for the whole window.</h2>
+      <p class="lede">New shades, blinds, shutters and drapery, cut in our Lombard workshop and installed by us. And if the blinds you own are dusty or broken, we take them down, clean them in the ultrasonic tank, fix what's worn and hang them back the same day.</p>
+    </div>
+    <div class="proof">
+      <div><b>5.0<span class="star">★</span></b><span>Google · 22 reviews</span></div>
+      <div><b>4.6<span class="star">★</span></b><span>Yelp · 10 reviews</span></div>
+      <div><b>Free</b><span>In-home estimate</span></div>
+      <div><b>Same day</b><span>Blind cleaning turnaround</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="collection" class="section">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label">The collection</span><h2>Pick the light you want. We'll make the shade.</h2></div>
+      <a class="btn ghost" href="#contact">See samples at home</a>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="still"><img src="assets/product-zebra.jpg" alt="Zebra shade half open over a living-room window, morning light in bars across the sill" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Living rooms · Kitchens</div><h3>Zebra shades</h3><p>Sheer, filtered or private from one roller. Our most-asked-for shade.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-roller.jpg" alt="Oatmeal roller shade lowered two-thirds over a living-room window" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Sliding doors · Offices</div><h3>Roller shades</h3><p>Light-filtering or solar screen. Clean lines, dozens of fabrics.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-blackout.jpg" alt="Charcoal blackout shade fully lowered in a dim, warm living room" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Bedrooms · Nurseries · Media rooms</div><h3>Blackout shades</h3><p>Dark at noon. A cassette or cornice keeps the roll out of sight.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-honey.jpg" alt="Warm-white honeycomb shade lowered three-quarters over a living-room window" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Drafty windows</div><h3>Honeycomb shades</h3><p>Air pockets hold heat in through winter, out through summer. The quietest shade we sell.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-wood.jpg" alt="Oak wood blind with slats angled open, sunlight between the slats" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Kitchens · Baths · Dens</div><h3>Wood &amp; faux-wood blinds</h3><p>Real hardwood or a composite that shrugs off steam. Angle the slats for privacy or view.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-shutter.jpg" alt="White plantation shutters with louvers half open" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Front-facing windows</div><h3>Shutters</h3><p>Fitted inside the casing, painted or stained. The one treatment that stays with the house.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-roman.jpg" alt="Sand linen Roman shade raised halfway in soft pleats" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Dining rooms · Bedrooms</div><h3>Roman shades</h3><p>Fabric that folds up in soft pleats. Tailored, not fussy.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-drape.jpg" alt="Slate velvet drapery panels drawn open over a sheer white curtain" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Tall windows · Bedrooms</div><h3>Drapery</h3><p>Velvet, linen, sheers. Made for your rod and cut to your length.</p></div></article>
+      <article class="card"><div class="still"><img src="assets/product-motor.jpg" alt="Motorized cordless roller shade at half height, remote on the sill" width="1200" height="896" loading="lazy" decoding="async"></div><div class="body"><div class="for">Two-story windows · Skylights</div><h3>Motorized &amp; cordless</h3><p>Use a remote, wall switch or schedule. No cords for kids or pets to reach.</p></div></article>
+    </div>
+    <p class="also">Also: vertical blinds and sliding panels for patio doors, skylight shades, exterior shades.</p>
+  </div>
+</section>
+
+<section id="installs" class="section bone">
+  <div class="wrap">
+    <span class="label">From recent installs</span>
+    <h2>Rooms we've worked in.</h2>
+    <div class="gallery">
+      <figure><img src="assets/install-french-doors.jpg" alt="Light-filtering roller shades on a wall of French doors in a timber-frame living room" loading="lazy"><figcaption>Light-filtering rollers across six French doors</figcaption></figure>
+      <figure><img src="assets/install-velvet-drapes.jpg" alt="Navy velvet drapes and a light-filtering shade in a cream living room" loading="lazy"><figcaption>Velvet drapery over a filtered shade</figcaption></figure>
+      <figure><img src="assets/install-rollers-living.jpg" alt="Beige roller shades in a living room with tufted seating" loading="lazy"><figcaption>Rollers, matched to the walls</figcaption></figure>
+      <figure><img src="assets/install-blackout-kitchen.jpg" alt="Charcoal blackout roller shades with fabric cornices in a white kitchen" loading="lazy"><figcaption>Blackout rollers with cornices, white kitchen</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="lombard" class="section ink">
+  <div class="wrap">
+    <span class="label">Made in Lombard</span>
+    <div class="grid">
+      <div>
+        <h2>The fabric arrives on a bolt. It leaves as your shade.</h2>
+      </div>
+      <p class="lede">Most blind stores send your measurements to a factory in another state and wait. We cut ours in our own shop on Garfield Street. The fabric goes on the table, the tube is cut to your exact width, and there's no factory in another state to wait on. If something needs adjusting after installation, the person who made it is ten minutes away.</p>
+    </div>
+  </div>
+</section>
+
+<section id="cleaning" class="section">
+  <div class="wrap">
+    <span class="label">Cleaning &amp; repair</span>
+    <div class="grid">
+      <div>
+        <h2>The Sonic in our name.</h2>
+        <p class="lede" style="margin-top:32px">We started as a blind-cleaning company, and the ultrasonic tank still runs in the back of the shop. Your blinds come down in the morning, labeled by window. Cavitation bubbles in the tank reach the slat joints, cord holes and headrail that a cloth never does, without bending a slat. We restring worn cords, replace broken tilters and brackets, then put the blinds back up that same afternoon. Bring them to us, or we'll come get them.</p>
+        <div class="ctas" style="margin-top:36px"><a class="btn" href="#contact" data-need="Blind cleaning">Get a cleaning quote</a><a class="btn ghost" href="tel:+16307175665">Call (630) 717-5665</a></div>
+      </div>
+      <ul class="spec">
+        <li><b>01</b><span>Hunter Douglas, Silhouettes, wood, faux-wood, aluminum, vertical, honeycomb</span></li>
+        <li><b>02</b><span>Down in the morning, back up the same afternoon. Or drop them off and pick them up after work</span></li>
+        <li><b>03</b><span>Restringing, new cords and wands, brackets, and a replacement slat when one's bent</span></li>
+        <li><b>04</b><span>Offices and condo buildings too, for cleaning or for new treatments</span></li>
+        <li><b>05</b><span>Window washing while the blinds are down, for a few dollars more</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="section ink photo" style="background-image:url(assets/process-bg.jpg)">
+  <div class="wrap">
+    <span class="label">How it works</span>
+    <h2>Three steps. One visit for most homes.</h2>
+    <div class="steps">
+      <div class="step"><b>01</b><h3>Free estimate at your house</h3><p>Marco or Alfredo brings the sample books so you see the fabric in your light, on your wall, next to your sofa. Nobody rushes you.</p></div>
+      <div class="step"><b>02</b><h3>We measure and make</h3><p>We measure every window ourselves. Shades are cut in our Lombard shop; blinds and shutters are ordered to your spec.</p></div>
+      <div class="step"><b>03</b><h3>Install day</h3><p>We hang everything, check that each shade runs true, show you the remote and take the boxes with us.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="section">
+  <div class="wrap">
+    <span class="label">5.0 on Google, 22 reviews · 4.6 on Yelp, 10 reviews</span>
+    <h2>Twenty-two five-star reviews on Google. A few of them, plus two from Yelp.</h2>
+    <div class="quotes">
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>Marco … spends time to offer suggestions and bring samples … he doesn't rush you on making a decision. His prices are more than reasonable. The installation was very professional and on time.</blockquote><cite>raul cepeda · Google</cite></div>
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>I got motorized blinds almost 5 years ago and they're still working perfectly. One of the remotes got broken a year or so after the blinds were installed and they came and sorted it out quickly.</blockquote><cite>Keji A · Google</cite></div>
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>I am an interior designer and have used Alfredo for my clients' window treatments. He goes above and beyond for clients. Great communication, great pricing, great products, installation of difficult jobs and great follow-up.</blockquote><cite>Kelly L, interior designer · Google</cite></div>
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>I worked with Alfredo to customize exactly the color and fabric of the motorized shades I wanted in my condo. … 10/10! Thank you.</blockquote><cite>Chase Mako · Google</cite></div>
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>He promised a 4 PM return and at 4:15, he pulled up with the cleaned blinds. For a few dollars more, he also washed the windows where the blinds hung. When he left, there was not a trace of plastic, tape or anything.</blockquote><cite>shirley l. · Yelp</cite></div>
+      <div class="quote"><div class="stars">★★★★★</div><blockquote>They were able to complete the job in one day and carefully hand washed a large wooden slider that was unable to be removed. Our blinds look brand new.</blockquote><cite>Gayle M. · Yelp</cite></div>
+    </div>
+  </div>
+</section>
+
+<section id="area" class="section bone">
+  <div class="wrap">
+    <span class="label">Where we work</span>
+    <h2>Lombard and the western suburbs.</h2>
+    <p class="towns"><em class="t">Lombard</em><span class="d">,</span> <span class="t">Glen Ellyn</span><span class="d">,</span> <span class="t">Wheaton</span><span class="d">,</span> <span class="t">Elmhurst</span><span class="d">,</span> <span class="t">Villa Park</span><span class="d">,</span> <span class="t">Downers Grove</span><span class="d">,</span> <span class="t">Oak Brook</span><span class="d">,</span> <span class="t">Hinsdale</span><span class="d">,</span> <span class="t">Western Springs</span><span class="d">,</span> <span class="t">Naperville</span><span class="d">,</span> <span class="t">Lisle</span><span class="d">,</span> <span class="t">Woodridge</span><span class="d">,</span> <span class="t">Bolingbrook</span><span class="d">,</span> <span class="t">Aurora</span><span class="d">,</span> <span class="t">Oak Park</span><span class="d">,</span> <span class="t">Chicago</span></p>
+    <p class="far">Farther out? Call. We've driven to Yorkville and to Evanston.</p>
+  </div>
+</section>
+
+<section id="faq" class="section">
+  <div class="wrap">
+    <div class="grid">
+    <div><span class="label">Questions</span>
+    <h2>Before you call.</h2></div>
+    <div class="faq">
+      <details><summary>Is the estimate really free?</summary><div class="a">Yes. One of us comes out, measures, brings samples and leaves you a written quote. No charge, whatever you decide.</div></details>
+      <details><summary>How long does installation take?</summary><div class="a">Usually one visit. We'll tell you at the estimate.</div></details>
+      <details><summary>Do you clean Hunter Douglas blinds?</summary><div class="a">Yes, along with Silhouettes, wood, faux-wood, aluminum, vertical and honeycomb.</div></details>
+      <details><summary>Are your shades child-safe?</summary><div class="a">Yes. Choose cordless lift, motorized, or a tensioned chain that can't form a loop. Ask and we'll spec it that way.</div></details>
+      <details><summary>Do you do motorized shades?</summary><div class="a">Yes. Battery or hardwired, remote or wall switch. And we service what we install.</div></details>
+      <details><summary>Do you do commercial work?</summary><div class="a">Yes. Offices and condo buildings, for cleaning or for new treatments.</div></details>
+      <details><summary>Military discount?</summary><div class="a">Yes.</div></details>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section bone">
+  <div class="wrap">
+    <span class="label">Free estimate</span>
+    <div class="grid">
+      <div>
+        <h2>Tell us about your windows.</h2>
+        <form class="form" action="https://formsubmit.co/sonicexpressblinds@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="Free estimate request — sonicexpressblinds.com">
+          <input type="hidden" name="_template" value="table">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" required autocomplete="name"></div>
+          <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" required autocomplete="tel"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email"></div>
+          <div class="field"><label for="f-town">Town</label><input id="f-town" name="town" type="text" autocomplete="address-level2"></div>
+          <div class="field full"><label for="f-need">I need</label>
+            <select id="f-need" name="need" required><option value="" selected disabled>Pick one</option><option>New shades or blinds</option><option>Blind cleaning</option><option>Blind repair</option><option>Not sure yet</option></select></div>
+          <div class="field full"><label for="f-msg">Message</label><textarea id="f-msg" name="message"></textarea></div>
+          <button class="btn" type="submit">Request my free estimate</button>
+        </form>
+      </div>
+      <div class="details">
+        <div class="row"><span class="k">Shop</span><span class="v">1210 S Garfield St<br>Lombard, IL 60148<small><a href="https://www.google.com/maps/dir/?api=1&destination=1210+S+Garfield+St,+Lombard,+IL+60148" target="_blank" rel="noopener">Directions ↗</a></small></span></div>
+        <div class="row"><span class="k">Phone</span><span class="v"><a href="tel:+16307175665">(630) 717-5665</a></span></div>
+        <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:sonicexpressblinds@gmail.com">sonicexpressblinds@gmail.com</a></span></div>
+        <div class="row"><span class="k">Hours</span><span class="v">Mon–Fri, 9 to 5<small>Saturday by appointment</small></span></div>
+        <div class="map" id="map" role="img" aria-label="Map: 1210 S Garfield St, Lombard, IL"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="assets/logo-white.png" alt="Sonic Express Blinds" width="347" height="348">
+      <nav aria-label="Footer">
+        <a href="#collection">Shades &amp; Blinds</a><a href="#cleaning">Cleaning &amp; Repair</a><a href="#process">How it works</a><a href="#reviews">Reviews</a><a href="#faq">Questions</a><a href="#contact">Free estimate</a>
+      </nav>
+      <div class="social">
+        <a href="https://www.facebook.com/SonicExpressBlindCleaningInstallation/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+        <a href="https://www.instagram.com/sonicexpressblinds/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 Sonic Express Blind Cleaning LLC · 1210 S Garfield St, Lombard, IL 60148</span>
+      <span><a href="tel:+16307175665">(630) 717-5665</a> · <a href="mailto:sonicexpressblinds@gmail.com">sonicexpressblinds@gmail.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="vendor-lenis.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  /* ---------- config (set by the build) ---------- */
+  var FRAME_COUNT = 355;            // 361 rendered, 6-frame static head trimmed
+  var FRAME_DIR = 'frames/';
+  var pad = function(n){ return String(n).padStart(4,'0'); };
+  var frameSrc = function(i){ return FRAME_DIR + 'f_' + pad(i+1) + '.jpg'; };
+  var FPS = 24;
+  var AHEAD = Math.round(FPS*2.0), KEEP = Math.round(FPS*3.3);   // window in seconds of film
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var JUMP = new URLSearchParams(location.search).get('jump');
+  if (JUMP !== null) history.scrollRestoration = 'manual';
+
+  var film = document.getElementById('film'), stage = document.getElementById('stage');
+  var canvas = document.getElementById('screen'), ctx = canvas.getContext('2d', {alpha:false});
+  var header = document.getElementById('header'), brand = header.querySelector('.brand');
+  var handoff = document.getElementById('handoff'), grain = document.getElementById('grain'), vignette = document.getElementById('vignette');
+  var loader = document.getElementById('loader'), loadbar = document.getElementById('loadbar'), hint = document.getElementById('hint');
+  var inks = document.querySelectorAll('.section.ink');
+  /* ---------- map (own tiles, no third-party chrome) ---------- */
+  (function(){
+    var el = document.getElementById('map'); if (!el || !('IntersectionObserver' in window)) return;
+    var done = false;
+    function init(){
+      if (done || !window.L) return; done = true;
+      var m = L.map('map', { zoomControl:false, scrollWheelZoom:false, dragging:false, doubleClickZoom:false, boxZoom:false, keyboard:false, touchZoom:false, attributionControl:true });
+      m.attributionControl.setPrefix(false);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(m);
+      m.setView([41.8599, -88.0146], 15);
+      L.circleMarker([41.8599, -88.0146], { radius:9, color:'#F5F1EA', weight:3, fillColor:'#15171B', fillOpacity:1 }).addTo(m);
+    }
+    var io = new IntersectionObserver(function(es){
+      if (!es.some(function(e){ return e.isIntersecting; })) return;
+      io.disconnect();
+      if (window.L) return init();
+      var sc = document.createElement('script'); sc.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'; sc.crossOrigin = ''; sc.onload = init; document.head.appendChild(sc);
+    }, { rootMargin: '600px 0px' });
+    io.observe(el);
+  })();
+
+  var beats = Array.prototype.map.call(document.querySelectorAll('.beat'), function(el){
+    return { el: el, in: +el.dataset.in, peak: +el.dataset.peak, out: +el.dataset.out };
+  });
+
+  /* ---------- canvas sizing (DPR capped at 1: source is 1440 wide) ---------- */
+  var DPR = Math.min(1, devicePixelRatio || 1);
+  function resize(){
+    var w = stage.clientWidth, h = stage.clientHeight;
+    canvas.width = Math.round(w*DPR); canvas.height = Math.round(h*DPR);
+    canvas.style.width = w+'px'; canvas.style.height = h+'px';
+    drawFrame(displayed, true);
+  }
+
+  /* ---------- frame pump ---------- */
+  var images = new Array(FRAME_COUNT), loaded = 0, inflight = 0, next = 0, MAXQ = 10;
+  var ready = false;
+  function pump(){
+    while (inflight < MAXQ && next < FRAME_COUNT){
+      (function(i){
+        var im = new Image(); im.decoding = 'async';
+        inflight++;
+        im.onload = function(){ images[i] = im; loaded++; inflight--; onLoaded(i); pump(); };
+        im.onerror = function(){ inflight--; pump(); };
+        im.src = frameSrc(i);
+      })(next++);
+    }
+  }
+  var OPENING = Math.min(FRAME_COUNT, AHEAD+8);
+  function onLoaded(i){
+    if (!ready){
+      var have = 0; for (var k=0;k<OPENING;k++) if (images[k]) have++;
+      loadbar.style.inset = '0 ' + (100 - Math.round(100*have/OPENING)) + '% 0 0';
+      if (have >= OPENING) start();
+    }
+    if (i === displayed || (images[i] && Math.abs(i - Math.round(current)) <= AHEAD)) ensureBitmaps(Math.round(current), true);
+  }
+  function nearest(i){
+    if (images[i]) return i;
+    for (var d=1; d<FRAME_COUNT; d++){ if (images[i-d]) return i-d; if (images[i+d]) return i+d; }
+    return -1;
+  }
+
+  /* ---------- ImageBitmap sliding window ---------- */
+  var bitmaps = new Map(), decoding = new Set(), bmpCenter = -999;
+  var canBitmap = typeof createImageBitmap === 'function';
+  function ensureBitmaps(center, force){
+    if (!canBitmap) return;
+    if (!force && Math.abs(center - bmpCenter) < 3) return;
+    bmpCenter = center;
+    var lo = Math.max(0, center - Math.round(AHEAD*0.6)), hi = Math.min(FRAME_COUNT-1, center + AHEAD);
+    for (var i=lo;i<=hi;i++){
+      if (bitmaps.has(i) || decoding.has(i) || !images[i]) continue;
+      decoding.add(i);
+      (function(i){
+        createImageBitmap(images[i]).then(function(b){
+          decoding.delete(i);
+          if (Math.abs(i - bmpCenter) > KEEP){ b.close(); return; }
+          bitmaps.set(i, b);
+          if (i === displayed) drawFrame(i, true);
+        }).catch(function(){ decoding.delete(i); });
+      })(i);
+    }
+    bitmaps.forEach(function(b, k){ if (k < center - KEEP || k > center + KEEP){ b.close(); bitmaps.delete(k); } });
+  }
+
+  /* ---------- draw ---------- */
+  var displayed = -1, MAX_CROP = 0.22;
+  function fit(src){
+    var cw = canvas.width, ch = canvas.height, sw = src.width, sh = src.height;
+    var sCover = Math.max(cw/sw, ch/sh);
+    var crop = 1 - Math.min(cw/(sw*sCover), ch/(sh*sCover));
+    var s = crop > MAX_CROP ? Math.min(cw/(sw*(1-MAX_CROP)), ch/sh) : sCover;
+    var w = sw*s, h = sh*s;
+    if (crop > MAX_CROP){ ctx.fillStyle = '#15171B'; ctx.fillRect(0,0,cw,ch); }
+    // portrait phones: sit the film in the upper part so the beats read below it
+    var y = (ch-h)/2; if (crop > MAX_CROP && ch > cw){ y = Math.max(0, Math.min(y, 84*DPR)); document.documentElement.style.setProperty('--band-bottom', ((y+h)/DPR).toFixed(0)+'px'); }
+    ctx.drawImage(src, (cw-w)/2, y, w, h);
+  }
+  function drawFrame(i, force){
+    if (i < 0) return;
+    if (i === displayed && !force) return;
+    var src = bitmaps.get(i);
+    if (!src){ var n = nearest(i); if (n < 0) return; src = bitmaps.get(n) || images[n]; }
+    fit(src); displayed = i;
+  }
+
+  /* ---------- adaptive chrome ---------- */
+  var sc = document.createElement('canvas'); sc.width = 16; sc.height = 4; var sctx = sc.getContext('2d');
+  var lastSample = 0, onLight = false, lightBeat = false;
+  function sampleTop(force){
+    var t = performance.now(); if (!force && t - lastSample < 180) return; lastSample = t;
+    try{
+      sctx.drawImage(canvas, 0, 0, canvas.width, Math.max(1, canvas.height*0.12), 0, 0, 16, 4);
+      var d = sctx.getImageData(0,0,16,4).data, sum = 0;
+      for (var i=0;i<d.length;i+=4) sum += 0.2126*d[i] + 0.7152*d[i+1] + 0.0722*d[i+2];
+      var lum = sum/(d.length/4);
+      var light = lum > 128 || lightBeat;
+      if (light !== onLight){ onLight = light; header.classList.toggle('on-light', light); }
+    }catch(e){}
+  }
+
+  /* ---------- scroll + tick ---------- */
+  var lenis = null;
+  if (!reduce && JUMP === null && window.Lenis){
+    lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  }
+  var current = 0, target = 0, progress = 0, inFilm = true, filmBottom = 1e9;
+  function computeProgress(){
+    var r = film.getBoundingClientRect();
+    var span = r.height - innerHeight;
+    progress = Math.max(0, Math.min(1, -r.top / Math.max(1, span)));
+    inFilm = r.bottom > 0; filmBottom = r.bottom;
+    target = progress * (FRAME_COUNT - 1);
+  }
+  function beatAlpha(b, p){
+    if (p < b.in || p > b.out) return 0;
+    if (p < b.peak) return (p - b.in) / Math.max(1e-4, b.peak - b.in);
+    if (b.out > 1.5) return 1;
+    return 1 - (p - b.peak) / Math.max(1e-4, b.out - b.peak);
+  }
+  var lastP = -1;
+  function paintOverlays(p){
+    var lb = false;
+    for (var i=0;i<beats.length;i++){
+      var b = beats[i], a = beatAlpha(b, p);
+      var e = Math.max(0, Math.min(1, a));
+      if (e > 0.5 && b.el.classList.contains('light')) lb = true;
+      b.el.style.opacity = e.toFixed(3);
+      if (!reduce){
+        var dir = p < b.peak ? 1 : -1;
+        var y = (1-e) * 22 * dir;
+        b.el.style.transform = (innerWidth <= 768 ? '' : 'translateY(-50%) ') + 'translateY(' + y.toFixed(1) + 'px)';
+      }
+    }
+    if (lb !== lightBeat){ lightBeat = lb; lastSample = 0; }
+    // the hero mark docks into the header as it fades
+    brand.style.opacity = (1 - beatAlpha(beats[0], p)).toFixed(3);
+    var ho = Math.max(0, Math.min(1, (p - 0.90) / 0.09));
+    handoff.style.opacity = ho.toFixed(3);
+    grain.style.opacity = (0.07 * (1-ho)).toFixed(3);
+    vignette.style.opacity = (1-ho).toFixed(3);
+    hint.style.opacity = (1 - Math.min(1, p/0.06)).toFixed(3);
+  }
+  function tick(){
+    computeProgress();
+    if (inFilm){
+      current += (target - current) * (reduce ? 1 : 0.14);
+      if (Math.abs(target - current) < 0.02) current = target;
+      var idx = Math.round(current);
+      ensureBitmaps(idx);
+      drawFrame(idx);
+      sampleTop();
+      if (progress !== lastP){ paintOverlays(progress); lastP = progress; }
+    }
+    if (inFilm && filmBottom > innerHeight * 0.45){
+      header.classList.remove('docked');
+    } else {
+      header.classList.add('docked'); header.classList.add('on-light'); brand.style.opacity = 1;
+      var over = false;
+      for (var k=0;k<inks.length;k++){ var rr = inks[k].getBoundingClientRect(); if (rr.top <= 48 && rr.bottom >= 48){ over = true; break; } }
+      header.classList.toggle('over-ink', over);
+    }
+    requestAnimationFrame(tick);
+  }
+  if (lenis){ requestAnimationFrame(function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }); }
+
+  /* ---------- jank meter (console) ---------- */
+  var deltas = [], lastT = performance.now();
+  (function meter(){ var t = performance.now(); deltas.push(t-lastT); lastT = t;
+    if (deltas.length >= 120){ deltas.sort(function(a,b){return a-b;}); window.__jank = {p95: deltas[Math.floor(deltas.length*.95)], max: deltas[deltas.length-1]}; deltas = []; }
+    requestAnimationFrame(meter); })();
+
+  /* ---------- arrival motion ---------- */
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+  document.querySelectorAll('.section').forEach(function(s){ io.observe(s); });
+
+  /* ---------- mobile menu ---------- */
+  var menuBtn = document.getElementById('menuBtn'), menu = document.getElementById('menu');
+  function setMenu(open){ document.body.classList.toggle('menu-open', open); menuBtn.setAttribute('aria-expanded', String(open)); menu.setAttribute('aria-hidden', String(!open)); if (lenis){ open ? lenis.stop() : lenis.start(); } }
+  menuBtn.addEventListener('click', function(){ setMenu(!document.body.classList.contains('menu-open')); });
+  addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
+
+  /* ---------- anchors (lenis-aware) ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id = a.getAttribute('href'); if (id.length < 2) return;
+      var el = document.querySelector(id); if (!el) return;
+      ev.preventDefault();
+      setMenu(false);
+      if (a.dataset.need){ var sel = document.getElementById('f-need'); if (sel) sel.value = a.dataset.need; }
+      if (lenis) lenis.scrollTo(el, { offset: id === '#top' ? 0 : -72 }); else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---------- boot ---------- */
+  function start(){
+    if (ready) return; ready = true;
+    resize();
+    ensureBitmaps(0, true);
+    drawFrame(0, true);
+    loader.classList.add('done');
+    if (JUMP !== null){
+      scrollTo(0, +JUMP || 0);
+      computeProgress(); current = target; ensureBitmaps(Math.round(current), true); drawFrame(Math.round(current), true); paintOverlays(progress);
+      setTimeout(function(){ drawFrame(Math.round(current), true); sampleTop(true); window.__ready = true; }, 900);
+    } else {
+      window.__ready = true;
+    }
+    requestAnimationFrame(tick);
+  }
+  addEventListener('resize', resize);
+  pump();
+  // last-resort: if the opening never fully arrives (offline dev), start with what we have after 8s
+  setTimeout(function(){ if (!ready && loaded > 3) start(); }, 8000);
+})();
+</script>
+</body>
+</html>
